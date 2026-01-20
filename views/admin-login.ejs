@@ -1,0 +1,21 @@
+<%- include('partials/head') %>
+
+<section class="card narrow">
+  <h2>Admin Giriş</h2>
+  <% if (error) { %>
+    <div class="alert"><%= error %></div>
+  <% } %>
+  <form method="POST" action="/admin/login">
+    <label>
+      Kullanıcı adı
+      <input name="username" required />
+    </label>
+    <label>
+      Şifre
+      <input name="password" type="password" required />
+    </label>
+    <button class="btn primary" type="submit">Giriş</button>
+  </form>
+</section>
+
+<%- include('partials/foot') %>

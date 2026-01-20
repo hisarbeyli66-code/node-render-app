@@ -1,0 +1,29 @@
+<%- include('partials/head') %>
+
+<section class="card">
+  <h2>Ürün Bazlı Toplamlar</h2>
+  <% if (!stats || stats.length === 0) { %>
+    <p class="muted">Veri yok.</p>
+  <% } else { %>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ürün</th>
+            <th>Toplam</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% stats.forEach(s => { %>
+            <tr>
+              <td><%= s.product_name %></td>
+              <td><b><%= String(s.total_qty).replace('.', ',') %> <%= s.unit_label %></b></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>
+
+<%- include('partials/foot') %>

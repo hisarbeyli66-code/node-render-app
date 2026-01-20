@@ -1,0 +1,55 @@
+<%- include('partials/head') %>
+
+<section class="card">
+  <div class="row between">
+    <h2>Admin • Siparişler</h2>
+    <form method="POST" action="/admin/logout">
+      <button class="btn" type="submit">Çıkış</button>
+    </form>
+  </div>
+
+  <div class="row gap">
+    <a class="btn" href="/admin/export.csv">CSV Export</a>
+    <button class="btn" type="button" onclick="window.open('/admin/stats','_blank','noopener')">İstatistik</button>
+    <form method="POST" action="/admin/reset" onsubmit="return confirm('Tüm siparişler silinsin mi?')">
+      <button class="btn danger" type="submit">Siparişleri Sıfırla</button>
+    </form>
+  </div>
+
+  <div class="divider"></div>
+
+  <% if (!rows || rows.length === 0) { %>
+    <p class="muted">Henüz sipariş yok.</p>
+  <% } else { %>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Sipariş #</th>
+            <th>İsim</th>
+            <th>Ürün</th>
+            <th>Miktar</th>
+            <th>Satır Tutarı</th>
+            <th>Sipariş Toplamı</th>
+            <th>Tarih</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% rows.forEach(r => { %>
+            <tr>
+              <td><%= r.order_id %></td>
+              <td><%= r.customer_name %></td>
+              <td><%= r.product_name %></td>
+              <td><%= String(r.quantity).replace('.', ',') %> <%= r.unit_label %></td>
+              <td><%= money(r.line_total_eur) %></td>
+              <td><b><%= money(r.order_total) %></b></td>
+              <td class="muted"><%= r.created_at %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>
+
+<%- include('partials/foot') %>

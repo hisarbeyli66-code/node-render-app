@@ -1,0 +1,63 @@
+<%- include('partials/head') %>
+
+<section class="card">
+  <h2>Sipariş Bilgileri</h2>
+  <form id="orderForm" method="POST" action="/order">
+    <div class="grid">
+      <label>
+        İsim Soyisim <span class="req">*</span>
+        <input name="customer_name" required maxlength="80" />
+      </label>
+
+      <label>
+        Telefon <span class="req">*</span>
+        <input name="phone" required maxlength="30" />
+      </label>
+
+      <label>
+        E-posta (isteğe bağlı)
+        <input name="email" type="email" maxlength="120" />
+      </label>
+
+      <label class="full">
+        Not (isteğe bağlı)
+        <textarea name="note" rows="3" maxlength="400"></textarea>
+      </label>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="row between">
+      <h2>Ürün Seçimi</h2>
+      <button type="button" class="btn" id="addItemBtn">+ Ürün ekle</button>
+    </div>
+
+    <div class="hint">
+      <b>Kırmızı et:</b> ürün başına minimum <b>5 kg</b> •
+      <b>Tavuk:</b> paket satışı, minimum <b>1 paket</b>
+    </div>
+
+    <div id="items"></div>
+
+    <div class="divider"></div>
+
+    <div class="row between totalbar">
+      <div>
+        <div class="muted">Genel Toplam</div>
+        <div class="grand" id="grandTotal">0,00 €</div>
+      </div>
+      <button class="btn primary" type="submit">Siparişi Gönder</button>
+    </div>
+
+    <!-- ✅ sipariş kalemleri JSON burada gidecek -->
+    <input type="hidden" name="items_json" id="itemsJson" value="[]" />
+
+  </form>
+</section>
+
+<script>
+  window.PRODUCTS = <%- JSON.stringify(products) %>;
+</script>
+<script src="/app.js"></script>
+
+<%- include('partials/foot') %>
